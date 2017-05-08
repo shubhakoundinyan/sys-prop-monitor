@@ -22,11 +22,11 @@ def lin_process():
 
 	print "\n ########## DISK UTILIZATION for RESIDING FILE SYSTEM ##########"
 
-	bash_command_u = "df -h|grep /dev/disk1|awk '{print $3}' "
+	bash_command_u = "df -h|grep /dev/disk1|awk '{print $3}' "										# Change the hdd location here. So instead of /dev/sda1|awk - it should reflect your mount address
 	
 	print "\n Used Disk Space: "+str(subprocess.check_output(['bash', '-c', bash_command_u]))
 	
-	bash_command_a = "df -h|grep /dev/disk1|awk '{print $4}' "
+	bash_command_a = "df -h|grep /dev/disk1|awk '{print $4}' "										# Change the hdd location here. So instead of /dev/sda1|awk - it should reflect your mount address
 	
 	print " Available Disk Space: "+str(subprocess.check_output(['bash', '-c', bash_command_a]))
 
@@ -57,7 +57,7 @@ def lin_process():
 		temperatures = {match[0]: float(match[1]) for match in re.findall("^(.*?)\:s+\+?(.*?)°C", sensors, re.MULTILINE)}
 		disk = "/dev/sda"
 		output = subprocess.check_output(["smartctl", "-A", disk])
-      	 	temperatures[disk] = int(re.search("Temperature.*\s(\d+)\s*(?:\([\d\s]*\)|)$", output, re.MULTILINE).group(1))
+      	temperatures[disk] = int(re.search("Temperature.*\s(\d+)\s*(?:\([\d\s]*\)|)$", output, re.MULTILINE).group(1))
 		print "\nTemperature:"+str(temperatures[disk])
 		print "\nSensors temperature:"+str(psutil.sensors_temperatures())
 	'''
